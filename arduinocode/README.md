@@ -1,12 +1,26 @@
-# Self Replicating Web Page
+# Arduino Code Forms
 
-## smaller heading
+ - blink_LED
+ - blink_motor
+ - ramp_motor
+ - button_motor
+ - knob_graph
+ - knob_motor
+ - temperature_graph
+ - pressure_graph
+ - g_graph
+ - g_feedback
+ - t_feedback
+ - p__touchsense
+ - neopixel_default
+ - neopixel_knob
+ = stepper_direct_knob
+ - stepper_oscillator
+ - stepper_control
+ - dc_motor_control
+ - sense_plot
+ - mechanical_oscillator
 
-To edit, click on the edit button, type and edit at will, then click on it again.  No logins, no passwords, no databases.  You just edit and share and replicate.  This is the free web.  Edit icon looks like this:
-
-![](http://localhost:8000/iconsymbols/editor.svg)
-
-What you see here is "markdown", which is a simple way to publishing things on the web. Hit return twice to get a paragraph break.  Copy the syntax you see here to get links and images and headings. You can look up markdown for more syntax.  Also embedding <span style = "color:red;font-family:courier;">HTML</span> works if you know that.  
 
 [link up a level../](../)
 

@@ -168,6 +168,7 @@ document.getElementById("maineditor").onkeyup = function(){
     var fileName = currentFile.split("/")[1];
 }
 
+
 </script>
 <style>
 #namediv{

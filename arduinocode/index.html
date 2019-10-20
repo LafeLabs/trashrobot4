@@ -51,60 +51,108 @@ bootstrap is whole big thing that does lots of things, but what we use it for he
 
     </head>
 <body>
-    
-<div class = "mainscrollarea" id = "scrollscroll"></div>
 
-<div id = "margin">
-    <textarea id = "codebox">
+
+<div class = "mainscrollarea" id = "scrollscroll"></div>
+<textarea id = "codebox"  spellcheck="false">
 </textarea>
+<div id = "margin">
+    <a href = "pageeditor.html">
+         <img style = "width:50px;" src = "iconsymbols/editor.svg"/>
+    </a>
+    <a href = "list.html">
+        <img style = "width:50px;" src = "iconsymbols/tree.svg"/>
+    </a>
 
 </div>
 
 <script>
+    
+buttonIndex = 0;
+filename = "";
+
+
+//get readme.md, convert to html and display
+var converter = new showdown.Converter();
+// for more on options see here:
+// https://github.com/showdownjs/showdown/wiki/Showdown-Options
+converter.setOption('literalMidWordUnderscores', 'true');
+converter.setOption('tables', 'true');
+
+readme_md = "";
+rawhtml = "";
+var httpc = new XMLHttpRequest();
+httpc.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        readme_md = this.responseText;
+        rawhtml = converter.makeHtml(readme_md);
+        document.getElementById("scrollscroll").innerHTML = rawhtml;
+    }
+};
+httpc.open("GET", "fileloader.php?filename=README.md", true);
+httpc.send();
 
 codes = [];
 var httpc4 = new XMLHttpRequest();
 httpc4.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         codes = JSON.parse(this.responseText);
-        for(var index = codes.length - 1;index >= 0;index--) {
-            console.log(codes[index]);
+        for(var index = 0;index < codes.length;index++) {
             var newdiv = document.createElement("DIV");
             newdiv.className = "button";
             newdiv.innerHTML = codes[index];
-            document.getElementById("scrollscroll").appendChild(newdiv);
+            newdiv.id = "button" + index.toString();
+            document.getElementById("margin").appendChild(newdiv);
             newdiv.onclick = function(){
-                var filename = "arduino/" + this.innerHTML;
+                buttons[buttonIndex].style.backgroundColor = "#ffffff";
+                buttonIndex = parseInt(this.id.substring(6));
+                buttons[buttonIndex].style.backgroundColor = "#afafff";
+
+                filename = "arduino/" + this.innerHTML;
                 var httpc2 = new XMLHttpRequest();
                 httpc2.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         code = this.responseText;
                         document.getElementById("codebox").value = code;
+                        
                     };
                 }
                 httpc2.open("GET", "fileloader.php?filename=" + filename, true);
                 httpc2.send();
             }
         }
+        buttons = document.getElementsByClassName("button");
+        buttonIndex = 0;
+        buttons[buttonIndex].style.backgroundColor = "#afafff";
+        buttons[buttonIndex].click();
     }
 };
 
 httpc4.open("GET", "dir.php?filename=arduino", true);
 httpc4.send();
 
+
+document.getElementById("codebox").onkeyup = function(){
+    data = encodeURIComponent(this.value);
+    var httpc = new XMLHttpRequest();
+    var url = "filesaver.php";        
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+    httpc.send("data="+data+"&filename="+filename);//send text to filesaver.php
+    
+}
+
+
 </script>
 <style>
     body{
         overflow:hidden;
     }
-    .mainscrollarea{
+    #scrollscroll{
         position:absolute;
         left:0px;
-        right:30em;
         top:0px;
         bottom:0px;
-    }
-    #scrollscroll{
         overflow:scroll;
         border-right:solid;
         border-width:0.1px;
@@ -112,6 +160,7 @@ httpc4.send();
         padding-left:1em;
         padding-right:1em;
         padding-bottom:5em;
+        width:50%;
     }
     #scrollscroll img{
         max-width:80%;
@@ -126,18 +175,22 @@ httpc4.send();
         position:absolute;
         right:0px;
         bottom:0px;
-        top:0px;
-        width:27em;
+        top:50%;
+        width:50%;
+        overflow:scroll;
+        
     }
     #codebox{
         font-family:courier;
         background-color:white;
         color:black;
         border:solid;
-        width:100%;
+        width:50%;
         position:absolute;
-        left:0px;
-        height:100%;
+        right:0px;
+        top:0px;
+        height:40%;
+        display:block;
     }
     .button{
         cursor:pointer;
@@ -147,6 +200,7 @@ httpc4.send();
         border-width:2px;
         margin-top:1em;
         margin-bottom:1em;
+        text-align:center;
     }
 
 </style>
