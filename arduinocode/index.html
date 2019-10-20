@@ -55,38 +55,42 @@ bootstrap is whole big thing that does lots of things, but what we use it for he
 <div class = "mainscrollarea" id = "scrollscroll"></div>
 
 <div id = "margin">
-    <a href = "pageeditor.html">
-         <img style = "width:50px;" src = "iconsymbols/editor.svg"/>
-    </a>
-    <a href = "list.html">
-        <img style = "width:50px;" src = "iconsymbols/tree.svg"/>
-    </a>
-    
+    <textarea id = "codebox">
+</textarea>
+
 </div>
 
 <script>
 
-    
-    //get readme.md, convert to html and display
-    var converter = new showdown.Converter();
-    // for more on options see here:
-    // https://github.com/showdownjs/showdown/wiki/Showdown-Options
-    converter.setOption('literalMidWordUnderscores', 'true');
-    converter.setOption('tables', 'true');
-
-
-    readme_md = "";
-    rawhtml = "";
-    var httpc = new XMLHttpRequest();
-    httpc.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            readme_md = this.responseText;
-            rawhtml = converter.makeHtml(readme_md);
-            document.getElementById("scrollscroll").innerHTML = rawhtml;
+codes = [];
+var httpc4 = new XMLHttpRequest();
+httpc4.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        codes = JSON.parse(this.responseText);
+        for(var index = codes.length - 1;index >= 0;index--) {
+            console.log(codes[index]);
+            var newdiv = document.createElement("DIV");
+            newdiv.className = "button";
+            newdiv.innerHTML = codes[index];
+            document.getElementById("scrollscroll").appendChild(newdiv);
+            newdiv.onclick = function(){
+                var filename = "arduino/" + this.innerHTML;
+                var httpc2 = new XMLHttpRequest();
+                httpc2.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        code = this.responseText;
+                        document.getElementById("codebox").value = code;
+                    };
+                }
+                httpc2.open("GET", "fileloader.php?filename=" + filename, true);
+                httpc2.send();
+            }
         }
-    };
-    httpc.open("GET", "fileloader.php?filename=README.md", true);
-    httpc.send();
+    }
+};
+
+httpc4.open("GET", "dir.php?filename=arduino", true);
+httpc4.send();
 
 </script>
 <style>
@@ -125,28 +129,26 @@ bootstrap is whole big thing that does lots of things, but what we use it for he
         top:0px;
         width:27em;
     }
-    @media only screen and (orientation: portrait) {
-        .mainscrollarea{
-            position:absolute;
-            left:0px;
-            top:70px;
-            right:0px;
-            bottom:0px;
-            font-size:3em;
-        }
-        h1,h2,h3,h4{
-            font-size:4em;
-        }
-        #margin{
-            position:absolute;
-            right:0px;
-            left:0px;
-            top:0px;
-            width:100%;
-            height:70px;
-            overflow:scroll;
-        }
+    #codebox{
+        font-family:courier;
+        background-color:white;
+        color:black;
+        border:solid;
+        width:100%;
+        position:absolute;
+        left:0px;
+        height:100%;
     }
+    .button{
+        cursor:pointer;
+        display:block;
+        border:solid;
+        border-radius:0.5em;
+        border-width:2px;
+        margin-top:1em;
+        margin-bottom:1em;
+    }
+
 </style>
 </body>
 </html>
