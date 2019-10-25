@@ -14,7 +14,7 @@
  - p__touchsense
  - neopixel_default
  - neopixel_knob
- = stepper_direct_knob
+ - stepper_direct_knob
  - stepper_oscillator
  - stepper_control
  - dc_motor_control

@@ -1,0 +1,24 @@
+/*
+  Motor Knob in TRash Robot
+
+  This example code is in the public domain.
+*/
+
+const int motorPin = 5; // the number of the motor pin
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin A2:
+  int sensorValue = analogRead(A2);
+  // print out the value you read:
+  Serial.println(sensorValue);
+  analogWrite(motorPin,sensorValue/4); //from 1024 range to 256 range
+  delay(1);        // delay in between reads for stability
+}
