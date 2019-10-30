@@ -8,7 +8,7 @@ STEPPER KNOB DIRECT DRIVE
 
 */
 
-int pinArray[] = {10,12,11,13};
+int pinArray[] = {9,11,10,12};
 int pinIndex = 0;
 int pulseTime = 10;//ms
 int knob = 512;

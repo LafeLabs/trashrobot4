@@ -3,16 +3,16 @@ int knob = 0;
 int fwdpin = 3;
 int rvspin = 2;
 
-int fwddrivepin = 13;
-int rvsdrivepin = 12;
+int fwddrivepin = 9;
+int rvsdrivepin = 10;
 boolean fwd = false;
 boolean rvs = false;
 
 void setup() {
-    pinMode(10,OUTPUT); 
     pinMode(11,OUTPUT); 
-    digitalWrite(10,LOW);
+    pinMode(12,OUTPUT); 
     digitalWrite(11,LOW);
+    digitalWrite(12,LOW);
     pinMode(fwddrivepin,OUTPUT); 
     pinMode(rvsdrivepin,OUTPUT); 
     analogWrite(fwddrivepin,0);
@@ -20,7 +20,7 @@ void setup() {
     pinMode(fwdpin,INPUT_PULLUP); 
     pinMode(rvspin,INPUT_PULLUP); 
     knob = analogRead(A2);
-      Serial.begin(115200);
+    Serial.begin(9600);
 
 }
 
