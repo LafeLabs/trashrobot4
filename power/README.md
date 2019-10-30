@@ -1,13 +1,13 @@
-# Self Replicating Web Page
+# Power
 
-## smaller heading
+[12 V USB battery from Amazon $33.99](https://www.amazon.com/TalentCell-Rechargeable-12000mAh-Multi-led-indicator/dp/B00ME3ZH7C/)
 
-To edit, click on the edit button, type and edit at will, then click on it again.  No logins, no passwords, no databases.  You just edit and share and replicate.  This is the free web.  Edit icon looks like this:
+[Barrel connector for 12 V supply from Amazon $7.49](https://www.amazon.com/Valley-Enterprises-2-1mm-5-5mm-Adapter/dp/B00DX6ZUBM/)
 
-![](http://localhost:8000/iconsymbols/editor.svg)
+[Wall Wort 12 V 2A $10.99](https://www.amazon.com/dp/B07G5FW1QM/)
 
-What you see here is "markdown", which is a simple way to publishing things on the web. Hit return twice to get a paragraph break.  Copy the syntax you see here to get links and images and headings. You can look up markdown for more syntax.  Also embedding <span style = "color:red;font-family:courier;">HTML</span> works if you know that.  
+[solar charger $39.99](https://www.amazon.com/dp/B07NZZYT38/)
+
+[5 V USB battery on Amazon $18.99](https://www.amazon.com/Anker-PowerCore-Ultra-Compact-High-Speed-Technology/dp/B01CU1EC6Y/)
 
 [link up a level../](../)
-
-[editor.php](editor.php)
